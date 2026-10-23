@@ -187,7 +187,7 @@
                 <th class="py-3.5 px-4">Категория</th>
                 <th class="py-3.5 px-4">Сайт & Витрина</th>
                 <th class="py-3.5 px-4">Привязанный Домен</th>
-                <th class="py-3.5 px-4">Регистратор</th>
+                <th class="py-3.5 px-4">Регистратор & Срок</th>
                 <th class="py-3.5 px-4">Репозиторий</th>
                 <th class="py-3.5 px-4">Статус тарифа</th>
                 <th class="py-3.5 px-4">Заметки</th>
@@ -232,6 +232,8 @@
         domain: "synaptiqlab.tech",
         domainUrl: "https://synaptiqlab.tech",
         registrar: "reg.ru",
+        domainReg: "17.10.2026",
+        domainExp: "17.10.2027",
         repo: "synaptiqlab/tech",
         local: "synaptiq-lab",
         url: "https://synaptiqlab.tech",
@@ -246,6 +248,8 @@
         domain: "",
         domainUrl: "",
         registrar: "",
+        domainReg: "",
+        domainExp: "",
         repo: "synaptiqlab/demo",
         local: "salons/noir-atelier",
         url: "https://synaptiqlab.github.io/demo/noir-atelier/",
@@ -260,6 +264,8 @@
         domain: "",
         domainUrl: "",
         registrar: "",
+        domainReg: "",
+        domainExp: "",
         repo: "synaptiqlab/hd-hair-lab",
         local: "salons/hd-hair-lab",
         url: "https://synaptiqlab.github.io/hd-hair-lab/",
@@ -274,6 +280,8 @@
         domain: "",
         domainUrl: "",
         registrar: "",
+        domainReg: "",
+        domainExp: "",
         repo: "synaptiqlab/prime-space",
         local: "coworking/prime-space",
         url: "https://synaptiqlab.github.io/prime-space/",
@@ -288,6 +296,8 @@
         domain: "",
         domainUrl: "",
         registrar: "",
+        domainReg: "",
+        domainExp: "",
         repo: "synaptiqlab/demo",
         local: "salons/evo-beauty-space",
         url: "https://synaptiqlab.github.io/demo/evo-beauty-space/",
@@ -302,6 +312,8 @@
         domain: "",
         domainUrl: "",
         registrar: "",
+        domainReg: "",
+        domainExp: "",
         repo: "synaptiqlab/demo",
         local: "salons/art-bouquet",
         url: "https://synaptiqlab.github.io/demo/art-bouquet/",
@@ -317,6 +329,8 @@
         domain: "",
         domainUrl: "",
         registrar: "",
+        domainReg: "",
+        domainExp: "",
         repo: "synaptiqlab/menu",
         local: "restaurants/bep-sen-vang",
         url: "https://synaptiqlab.github.io/menu/bep-sen-vang.html",
@@ -331,6 +345,8 @@
         domain: "",
         domainUrl: "",
         registrar: "",
+        domainReg: "",
+        domainExp: "",
         repo: "synaptiqlab/menu",
         local: "restaurants/bun-bo-hue-ba-lang",
         url: "https://synaptiqlab.github.io/menu/bun-bo-hue-ba-lang.html",
@@ -345,6 +361,8 @@
         domain: "",
         domainUrl: "",
         registrar: "",
+        domainReg: "",
+        domainExp: "",
         repo: "synaptiqlab/menu",
         local: "restaurants/khoi-lounge-bar",
         url: "https://synaptiqlab.github.io/menu/khoi-lounge-bar.html",
@@ -359,6 +377,8 @@
         domain: "ск-сириус.рф",
         domainUrl: "http://xn----ptbaf6accdr.xn--p1ai",
         registrar: "beget.ru",
+        domainReg: "24.09.2017",
+        domainExp: "24.09.2027",
         repo: "synaptiqlab/sk-sirius",
         local: "sk-sirius",
         url: "http://xn----ptbaf6accdr.xn--p1ai",
@@ -440,13 +460,13 @@
       }
 
       try {
-        const stored = localStorage.getItem('synaptiq_master_vault_v10');
+        const stored = localStorage.getItem('synaptiq_master_vault_v11');
         if (stored) {
           projectsData = await decryptData(JSON.parse(stored), pin);
         } else {
           projectsData = DEFAULT_MASTER_PROJECTS;
           const enc = await encryptData(projectsData, pin);
-          localStorage.setItem('synaptiq_master_vault_v10', JSON.stringify(enc));
+          localStorage.setItem('synaptiq_master_vault_v11', JSON.stringify(enc));
         }
         currentPin = pin;
         showDashboard();
@@ -486,6 +506,27 @@
     function formatNotes(notes) {
       if (!notes) return '—';
       return notes.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline hover:text-cyan-300 break-all font-mono text-[11px]">$1</a>');
+    }
+
+    function getDomainExpBadge(p) {
+      if (!p.domainExp) return '';
+      const parts = p.domainExp.split('.');
+      if (parts.length !== 3) return '';
+      const expDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+      const now = new Date();
+      const diffTime = expDate - now;
+      const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const regInfo = p.domainReg ? `Оформлен: ${p.domainReg}` : '';
+
+      if (days < 0) {
+        return `<div class="inline-flex items-center gap-1 text-[10px] font-mono text-red-400 bg-red-950/80 px-1.5 py-0.5 rounded border border-red-700/60 mt-1 animate-pulse" title="${regInfo}">🚨 Истёк ${p.domainExp}!</div>`;
+      } else if (days <= 7) {
+        return `<div class="inline-flex items-center gap-1 text-[10px] font-mono text-red-300 bg-red-950/80 px-1.5 py-0.5 rounded border border-red-700/50 mt-1 animate-pulse" title="${regInfo}">🚨 Истекает: ${p.domainExp} (${days} дн.)</div>`;
+      } else if (days <= 30) {
+        return `<div class="inline-flex items-center gap-1 text-[10px] font-mono text-amber-300 bg-amber-950/60 px-1.5 py-0.5 rounded border border-amber-800/40 mt-1" title="${regInfo}">⚠️ Истекает: ${p.domainExp} (${days} дн.)</div>`;
+      } else {
+        return `<div class="text-[10px] text-zinc-400 font-mono mt-0.5" title="${regInfo}">До: ${p.domainExp} <span class="text-zinc-500">(${days} дн.)</span></div>`;
+      }
     }
 
     function renderDashboard() {
@@ -570,6 +611,7 @@
           </td>
           <td class="py-3.5 px-4 whitespace-nowrap font-mono text-xs">
             ${registrarHtml}
+            ${getDomainExpBadge(p)}
           </td>
           <td class="py-3.5 px-4 font-mono text-xs text-zinc-400">
             <a href="https://github.com/${p.repo}" target="_blank" class="hover:text-white hover:underline flex items-center gap-1 text-[11px]">
@@ -630,8 +672,9 @@
               <a href="https://github.com/${p.repo}" target="_blank" class="block text-zinc-300 hover:text-white truncate mt-0.5 text-[11px]">${p.repo}</a>
             </div>
             <div>
-              <span class="text-zinc-600">Регистратор:</span>
+              <span class="text-zinc-600">Регистратор & Срок:</span>
               <div class="text-zinc-300 mt-0.5 text-[11px]">${p.registrar || '—'}</div>
+              ${getDomainExpBadge(p)}
             </div>
           </div>
 
