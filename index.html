@@ -74,7 +74,7 @@
       <div class="flex items-center gap-4">
         <div id="securityStatusBadge" class="hidden sm:flex items-center gap-2 text-xs font-mono text-zinc-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
           <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse" id="statusDot"></span>
-          <span id="statusLabel">LOCKED (AES-256)</span>
+          <span id="statusLabel">LOCKED</span>
         </div>
         <button id="lockBtn" onclick="lockHub()" class="hidden px-3.5 py-1.5 text-xs font-mono font-medium text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-colors">
           🔒 Заблокировать
@@ -125,53 +125,43 @@
           <div class="text-[11px] text-cyan-400 mt-1 font-mono">100% Synaptiq Org</div>
         </div>
         <div class="glass-card p-5 rounded-2xl">
-          <div class="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">Коммерческие / Active</div>
+          <div class="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">В работе (Active)</div>
           <div class="text-3xl font-bold text-emerald-400" id="statActive">0</div>
-          <div class="text-[11px] text-zinc-500 mt-1 font-mono">Сайты & Рестораны</div>
+          <div class="text-[11px] text-zinc-500 mt-1 font-mono">Действующие сайты</div>
         </div>
         <div class="glass-card p-5 rounded-2xl">
-          <div class="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">В витрине Demo</div>
+          <div class="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">Шаблоны & Демо</div>
           <div class="text-3xl font-bold text-purple-400" id="statDemo">0</div>
-          <div class="text-[11px] text-zinc-500 mt-1 font-mono">Готовы к клиентам</div>
+          <div class="text-[11px] text-zinc-500 mt-1 font-mono">База для презентаций</div>
         </div>
         <div class="glass-card p-5 rounded-2xl">
           <div class="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">На своих доменах</div>
-          <div class="text-3xl font-bold text-emerald-400 font-mono" id="statDomains">2</div>
+          <div class="text-3xl font-bold text-cyan-400 font-mono" id="statDomains">2</div>
           <div class="text-[11px] text-zinc-500 mt-1 font-mono">Custom DNS активны</div>
         </div>
       </div>
 
-      <!-- CONTROLS & FILTER BAR -->
+      <!-- CONTROLS & FILTER BAR (Strict tabs: Все, SINAPTIQ Projects, Шаблоны, Демо, В работе) -->
       <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
         <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-          <button onclick="setFilter('all')" class="filter-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black shadow-md transition-all" data-type="all">
+          <button onclick="setFilter('all')" class="filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black shadow-md transition-all" data-type="all">
             Все
           </button>
-          <button onclick="setFilter('has_domain')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-950/40 border border-emerald-800/40 transition-all flex items-center gap-1.5" data-type="has_domain">
-            <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
-            </svg>
-            🌐 На доменах
-          </button>
-          <button onclick="setFilter('main')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all flex items-center gap-1.5" data-type="main">
+          <button onclick="setFilter('main')" class="filter-btn px-4 py-2 rounded-xl text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all flex items-center gap-1.5" data-type="main">
             <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-            SYNAPTIQ Projects
+            SINAPTIQ Projects
           </button>
-          <button onclick="setFilter('brand')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all flex items-center gap-1.5" data-type="brand">
-            <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-            Персонал
+          <button onclick="setFilter('template')" class="filter-btn px-4 py-2 rounded-xl text-xs font-medium text-amber-300 hover:text-amber-200 bg-amber-950/30 border border-amber-800/40 transition-all flex items-center gap-1.5" data-type="template">
+            <span>📐</span>
+            Шаблоны
           </button>
-          <button onclick="setFilter('salon')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all" data-type="salon">
-            Салоны+СРМ
+          <button onclick="setFilter('demo')" class="filter-btn px-4 py-2 rounded-xl text-xs font-medium text-purple-300 hover:text-purple-200 bg-purple-950/30 border border-purple-800/40 transition-all flex items-center gap-1.5" data-type="demo">
+            <span>✨</span>
+            Демо
           </button>
-          <button onclick="setFilter('shop')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all" data-type="shop">
-            Shop+CRM
-          </button>
-          <button onclick="setFilter('coworking')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all" data-type="coworking">
-            Коворкинг+СРМ
-          </button>
-          <button onclick="setFilter('restaurant')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all" data-type="restaurant">
-            Меню
+          <button onclick="setFilter('active')" class="filter-btn px-4 py-2 rounded-xl text-xs font-medium text-emerald-300 hover:text-emerald-200 bg-emerald-950/30 border border-emerald-800/40 transition-all flex items-center gap-1.5" data-type="active">
+            <span>🚀</span>
+            В работе
           </button>
         </div>
 
@@ -190,7 +180,7 @@
             <thead class="bg-black/30 border-b border-white/5 font-mono text-[11px] text-zinc-400 uppercase tracking-wider">
               <tr>
                 <th class="py-3.5 px-4">Проект & Заведение</th>
-                <th class="py-3.5 px-4">Раздел</th>
+                <th class="py-3.5 px-4">Категория / Статус</th>
                 <th class="py-3.5 px-4">Сайт & Витрина</th>
                 <th class="py-3.5 px-4">Привязанный Домен</th>
                 <th class="py-3.5 px-4">Регистратор</th>
@@ -223,27 +213,27 @@
         
         <div>
           <label class="block text-xs font-mono text-zinc-400 mb-1">Название заведения / проекта</label>
-          <input type="text" id="mName" required class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm text-white" placeholder="Например: Synaptiq Lab">
+          <input type="text" id="mName" required class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm text-white" placeholder="Например: NOIR Hair Atelier">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-mono text-zinc-400 mb-1">Раздел</label>
-            <select id="mType" class="glass-input w-full px-3 py-2.5 rounded-xl text-sm text-white">
-              <option value="main">SYNAPTIQ Projects</option>
-              <option value="brand">Персонал</option>
-              <option value="salon">Салоны+СРМ</option>
-              <option value="shop">Shop+CRM</option>
-              <option value="coworking">Коворкинг+СРМ</option>
-              <option value="restaurant">Меню</option>
+            <label class="block text-xs font-mono text-zinc-400 mb-1">Раздел / Статус в хабе</label>
+            <select id="mSection" class="glass-input w-full px-3 py-2.5 rounded-xl text-sm text-white">
+              <option value="main">SINAPTIQ Projects</option>
+              <option value="template">Шаблоны (Templates)</option>
+              <option value="demo">Демо (Презентации)</option>
+              <option value="active">В работе (Active)</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-mono text-zinc-400 mb-1">Статус</label>
-            <select id="mStatus" class="glass-input w-full px-3 py-2.5 rounded-xl text-sm text-white">
-              <option value="active">Active (Коммерческий)</option>
-              <option value="demo">Demo (Витрина)</option>
-              <option value="pending">В разработке</option>
+            <label class="block text-xs font-mono text-zinc-400 mb-1">Тип заведения</label>
+            <select id="mType" class="glass-input w-full px-3 py-2.5 rounded-xl text-sm text-white">
+              <option value="salon">Салон красоты / SPA</option>
+              <option value="shop">Магазин / Shop+CRM</option>
+              <option value="coworking">Коворкинг / Пространство</option>
+              <option value="restaurant">Ресторан / Меню</option>
+              <option value="main">Платформа / Бренд</option>
             </select>
           </div>
         </div>
@@ -254,7 +244,7 @@
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
               Домен (Custom Domain)
             </label>
-            <input type="text" id="mDomain" class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-emerald-300 placeholder:text-zinc-600" placeholder="synaptiqlab.tech">
+            <input type="text" id="mDomain" class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-emerald-300 placeholder:text-zinc-600" placeholder="noir-atelier.vn">
           </div>
           <div>
             <label class="block text-xs font-mono text-indigo-400 mb-1 flex items-center gap-1">
@@ -268,17 +258,17 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-mono text-zinc-400 mb-1">Репозиторий GitHub</label>
-            <input type="text" id="mRepo" required class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-white" placeholder="synaptiqlab/tech">
+            <input type="text" id="mRepo" required class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-white" placeholder="synaptiqlab/demo">
           </div>
           <div>
             <label class="block text-xs font-mono text-zinc-400 mb-1">Локальная папка</label>
-            <input type="text" id="mLocal" class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-white" placeholder="synaptiq-lab">
+            <input type="text" id="mLocal" class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-white" placeholder="salons/noir-atelier">
           </div>
         </div>
 
         <div>
           <label class="block text-xs font-mono text-zinc-400 mb-1">Ссылка GitHub Pages / Файл</label>
-          <input type="url" id="mUrl" required class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-white" placeholder="https://synaptiqlab.github.io/tech/">
+          <input type="url" id="mUrl" required class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-white" placeholder="https://synaptiqlab.github.io/demo/noir-atelier/">
         </div>
 
         <div>
@@ -311,53 +301,40 @@
   <!-- CRYPTO & DATA ENGINE -->
   <script>
     // Initial master data
+    // section values: "main", "template", "demo", "active"
     const DEFAULT_MASTER_PROJECTS = [
       {
         name: "SYNAPTIQ Lab",
+        section: "main",
         type: "main",
-        status: "active",
         domain: "synaptiqlab.tech",
         domainUrl: "https://synaptiqlab.tech",
         registrar: "reg.ru",
         repo: "synaptiqlab/tech",
         local: "synaptiq-lab",
-        url: "https://synaptiqlab.github.io/tech/",
+        url: "https://synaptiqlab.tech",
         crm: "",
         tariffStatus: "SYNAPTIQ Main",
         notes: "Официальный сайт платформы. Домен на reg.ru, DNS-зона на Cloudflare."
       },
       {
-        name: "СК Сириус",
-        type: "brand",
-        status: "active",
-        domain: "ск-сириус.рф",
-        domainUrl: "http://xn----ptbaf6accdr.xn--p1ai",
-        registrar: "beget.ru",
-        repo: "synaptiqlab/sk-sirius",
-        local: "sk-sirius",
-        url: "https://synaptiqlab.github.io/sk-sirius/",
-        crm: "",
-        tariffStatus: "Personal / Brand",
-        notes: "Спортивный комплекс. Домен на beget.ru (Punycode xn----ptbaf6accdr.xn--p1ai)."
-      },
-      {
-        name: "HD Hair Lab",
+        name: "NOIR Hair Atelier",
+        section: "template",
         type: "salon",
-        status: "active",
         domain: "",
         domainUrl: "",
         registrar: "",
-        repo: "synaptiqlab/hd-hair-lab",
-        local: "salons/hd-hair-lab",
-        url: "https://synaptiqlab.github.io/hd-hair-lab/",
-        crm: "https://synaptiqlab.github.io/hd-hair-lab/admin.html",
-        tariffStatus: "Подготовка к запуску",
-        notes: "Студия реконструкции волос. CRM + витрина. Планируется подключение кастомного домена."
+        repo: "synaptiqlab/demo",
+        local: "salons/noir-atelier",
+        url: "https://synaptiqlab.github.io/demo/noir-atelier/",
+        crm: "https://synaptiqlab.github.io/demo/noir-atelier/admin.html",
+        tariffStatus: "Мастер-шаблон №1",
+        notes: "Базовый мастер-шаблон салона премиум-класса с CRM-движком и расчетом зарплат. Для трансляции клиентам."
       },
       {
         name: "EVO Beauty Space",
+        section: "demo",
         type: "salon",
-        status: "demo",
         domain: "",
         domainUrl: "",
         registrar: "",
@@ -366,26 +343,12 @@
         url: "https://synaptiqlab.github.io/demo/evo-beauty-space/",
         crm: "https://synaptiqlab.github.io/demo/evo-beauty-space/admin.html",
         tariffStatus: "Demo-витрина",
-        notes: "Премиальное бьюти-пространство и врачебная косметология. Готов к выходу из Demo."
-      },
-      {
-        name: "NOIR Hair Atelier",
-        type: "salon",
-        status: "demo",
-        domain: "",
-        domainUrl: "",
-        registrar: "",
-        repo: "synaptiqlab/demo",
-        local: "salons/noir-atelier",
-        url: "https://synaptiqlab.github.io/demo/noir-atelier/",
-        crm: "https://synaptiqlab.github.io/demo/noir-atelier/admin.html",
-        tariffStatus: "Demo-витрина",
-        notes: "Премиум-ателье волос. Полный CRM-движок с расчетом смен и зарплат."
+        notes: "Премиальное бьюти-пространство и врачебная косметология. Презентационный сайт."
       },
       {
         name: "Art Bouquet",
+        section: "demo",
         type: "shop",
-        status: "demo",
         domain: "",
         domainUrl: "",
         registrar: "",
@@ -394,12 +357,40 @@
         url: "https://synaptiqlab.github.io/demo/art-bouquet/",
         crm: "",
         tariffStatus: "Demo-витрина",
-        notes: "Премиум-флористика и авторские букеты. Каталог + CRM заказов."
+        notes: "Цветочный магазин премиум-флористики. Каталог + CRM заказов."
+      },
+      {
+        name: "СК Сириус",
+        section: "active",
+        type: "brand",
+        domain: "ск-сириус.рф",
+        domainUrl: "http://xn----ptbaf6accdr.xn--p1ai",
+        registrar: "beget.ru",
+        repo: "synaptiqlab/sk-sirius",
+        local: "sk-sirius",
+        url: "http://xn----ptbaf6accdr.xn--p1ai",
+        crm: "",
+        tariffStatus: "В работе (Бесплатно)",
+        notes: "Спортивный комплекс. Рабочий сайт, домен на beget.ru (Punycode xn----ptbaf6accdr.xn--p1ai)."
+      },
+      {
+        name: "HD Hair Lab",
+        section: "active",
+        type: "salon",
+        domain: "",
+        domainUrl: "",
+        registrar: "",
+        repo: "synaptiqlab/hd-hair-lab",
+        local: "salons/hd-hair-lab",
+        url: "https://synaptiqlab.github.io/hd-hair-lab/",
+        crm: "https://synaptiqlab.github.io/hd-hair-lab/admin.html",
+        tariffStatus: "В работе",
+        notes: "Студия реконструкции волос. CRM + витрина."
       },
       {
         name: "PRIME Space",
+        section: "active",
         type: "coworking",
-        status: "active",
         domain: "",
         domainUrl: "",
         registrar: "",
@@ -407,13 +398,13 @@
         local: "coworking/prime-space",
         url: "https://synaptiqlab.github.io/prime-space/",
         crm: "https://synaptiqlab.github.io/prime-space/admin.html",
-        tariffStatus: "Подготовка к запуску",
+        tariffStatus: "В работе",
         notes: "Многофункциональное пространство, йога, танцы, аренда рабочих мест."
       },
       {
         name: "Bếp Sen Vàng",
+        section: "active",
         type: "restaurant",
-        status: "active",
         domain: "",
         domainUrl: "",
         registrar: "",
@@ -421,13 +412,13 @@
         local: "restaurants/bep-sen-vang",
         url: "https://synaptiqlab.github.io/menu/bep-sen-vang.html",
         crm: "",
-        tariffStatus: "Меню + QR",
+        tariffStatus: "В работе (Меню)",
         notes: "Электронное меню на 4 языках + печатный тейбл-тент А6 300 DPI."
       },
       {
         name: "Bún Bò Huế Bà Lãng",
+        section: "active",
         type: "restaurant",
-        status: "active",
         domain: "",
         domainUrl: "",
         registrar: "",
@@ -435,13 +426,13 @@
         local: "restaurants/bun-bo-hue-ba-lang",
         url: "https://synaptiqlab.github.io/menu/bun-bo-hue-ba-lang.html",
         crm: "",
-        tariffStatus: "Меню + QR",
+        tariffStatus: "В работе (Меню)",
         notes: "Электронное меню на 4 языках + печатный тейбл-тент А6."
       },
       {
         name: "Khói Lounge Bar",
+        section: "active",
         type: "restaurant",
-        status: "active",
         domain: "",
         domainUrl: "",
         registrar: "",
@@ -449,7 +440,7 @@
         local: "restaurants/khoi-lounge-bar",
         url: "https://synaptiqlab.github.io/menu/khoi-lounge-bar.html",
         crm: "",
-        tariffStatus: "Меню + QR",
+        tariffStatus: "В работе (Меню)",
         notes: "Лаунж-бар, коктейли и европейская/азиатская кухня."
       }
     ];
@@ -532,13 +523,13 @@
         if (ENCRYPTED_PAYLOAD) {
           projectsData = await decryptData(ENCRYPTED_PAYLOAD, pin);
         } else {
-          const stored = localStorage.getItem('synaptiq_master_vault_v6');
+          const stored = localStorage.getItem('synaptiq_master_vault_v7');
           if (stored) {
             projectsData = await decryptData(JSON.parse(stored), pin);
           } else {
             projectsData = DEFAULT_MASTER_PROJECTS;
             const enc = await encryptData(projectsData, pin);
-            localStorage.setItem('synaptiq_master_vault_v6', JSON.stringify(enc));
+            localStorage.setItem('synaptiq_master_vault_v7', JSON.stringify(enc));
           }
         }
         currentPin = pin;
@@ -572,15 +563,15 @@
       document.getElementById('lockScreen').classList.remove('hidden');
       
       document.getElementById('statusDot').className = "w-2 h-2 rounded-full bg-amber-400 animate-pulse";
-      document.getElementById('statusLabel').textContent = "LOCKED (AES-256)";
+      document.getElementById('statusLabel').textContent = "LOCKED";
       document.getElementById('statusLabel').className = "text-zinc-400";
     }
 
     function renderDashboard() {
       // 1. KPI Stats
       document.getElementById('statTotal').textContent = projectsData.length;
-      document.getElementById('statActive').textContent = projectsData.filter(p => p.status === 'active').length;
-      document.getElementById('statDemo').textContent = projectsData.filter(p => p.status === 'demo').length;
+      document.getElementById('statActive').textContent = projectsData.filter(p => p.section === 'active').length;
+      document.getElementById('statDemo').textContent = projectsData.filter(p => p.section === 'demo' || p.section === 'template').length;
       document.getElementById('statDomains').textContent = projectsData.filter(p => p.domain && p.domain.trim() !== '').length;
 
       // 2. Render Table Rows
@@ -589,24 +580,22 @@
 
       const filtered = projectsData.filter(p => {
         if (currentFilter === 'all') return true;
-        if (currentFilter === 'has_domain') return p.domain && p.domain.trim() !== '';
-        return p.type === currentFilter;
+        return p.section === currentFilter;
       });
 
       filtered.forEach((p, idx) => {
         const tr = document.createElement('tr');
         tr.className = "hover:bg-white/[0.02] transition-colors";
 
-        const typeBadge = p.type === 'main' ? '<span class="badge bg-cyan-950/80 text-cyan-300 border border-cyan-800/40">SYNAPTIQ</span>' :
-                          p.type === 'brand' ? '<span class="badge bg-indigo-950/80 text-indigo-300 border border-indigo-800/40">Персонал</span>' :
-                          p.type === 'salon' ? '<span class="badge bg-purple-950/80 text-purple-300 border border-purple-800/40">Салоны+СРМ</span>' :
-                          p.type === 'shop' ? '<span class="badge bg-rose-950/80 text-rose-300 border border-rose-800/40">Shop+CRM</span>' :
-                          p.type === 'coworking' ? '<span class="badge bg-emerald-950/80 text-emerald-300 border border-emerald-800/40">Коворкинг+СРМ</span>' :
-                          '<span class="badge bg-amber-950/80 text-amber-300 border border-amber-800/40">Меню</span>';
+        const sectionBadge = p.section === 'main' ? '<span class="badge bg-cyan-950/80 text-cyan-300 border border-cyan-800/40">SINAPTIQ</span>' :
+                             p.section === 'template' ? '<span class="badge bg-amber-950/80 text-amber-300 border border-amber-800/40">Шаблон</span>' :
+                             p.section === 'demo' ? '<span class="badge bg-purple-950/80 text-purple-300 border border-purple-800/40">Демо</span>' :
+                             '<span class="badge bg-emerald-950/80 text-emerald-300 border border-emerald-800/40">В работе</span>';
 
-        const statusDot = p.status === 'active' ? '<span class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5" title="Active"></span>' :
-                          p.status === 'demo' ? '<span class="inline-block w-2 h-2 rounded-full bg-purple-400 mr-1.5" title="Demo"></span>' :
-                          '<span class="inline-block w-2 h-2 rounded-full bg-amber-400 mr-1.5" title="Pending"></span>';
+        const statusDot = p.section === 'active' ? '<span class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5" title="В работе"></span>' :
+                          p.section === 'template' ? '<span class="inline-block w-2 h-2 rounded-full bg-amber-400 mr-1.5" title="Шаблон"></span>' :
+                          p.section === 'demo' ? '<span class="inline-block w-2 h-2 rounded-full bg-purple-400 mr-1.5" title="Демо"></span>' :
+                          '<span class="inline-block w-2 h-2 rounded-full bg-cyan-400 mr-1.5" title="Main"></span>';
 
         // Custom domain button/chip
         let domainHtml = '<span class="text-zinc-600 font-mono text-xs">—</span>';
@@ -640,7 +629,7 @@
             </div>
             <div class="text-[11px] font-mono text-zinc-500 mt-0.5">${p.local || ''}</div>
           </td>
-          <td class="py-4 px-4 whitespace-nowrap">${typeBadge}</td>
+          <td class="py-4 px-4 whitespace-nowrap">${sectionBadge}</td>
           <td class="py-4 px-4 font-mono text-xs">
             <div class="flex items-center gap-2">
               <a href="${p.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold underline decoration-cyan-500/50 underline-offset-4 flex items-center gap-1 group">
@@ -682,13 +671,9 @@
       currentFilter = type;
       document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.dataset.type === type) {
-          btn.className = "filter-btn active px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-black shadow-md transition-all flex items-center gap-1.5";
+          btn.className = "filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black shadow-md transition-all flex items-center gap-1.5";
         } else {
-          if (btn.dataset.type === 'has_domain') {
-            btn.className = "filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-950/40 border border-emerald-800/40 transition-all flex items-center gap-1.5";
-          } else {
-            btn.className = "filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all flex items-center gap-1.5";
-          }
+          btn.className = "filter-btn px-4 py-2 rounded-xl text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all flex items-center gap-1.5";
         }
       });
       renderDashboard();
@@ -700,8 +685,8 @@
         const p = projectsData[editIdx];
         document.getElementById('modalTitle').textContent = "Редактировать проект";
         document.getElementById('mName').value = p.name;
+        document.getElementById('mSection').value = p.section || 'active';
         document.getElementById('mType').value = p.type;
-        document.getElementById('mStatus').value = p.status;
         document.getElementById('mDomain').value = p.domain || '';
         document.getElementById('mRegistrar').value = p.registrar || '';
         document.getElementById('mRepo').value = p.repo;
@@ -726,24 +711,24 @@
       const domainUrl = rawDomain ? (rawDomain.startsWith('http') ? rawDomain : `https://${rawDomain}`) : '';
       const registrarVal = document.getElementById('mRegistrar').value.trim();
 
+      const sectionVal = document.getElementById('mSection').value;
       const typeVal = document.getElementById('mType').value;
-      const statusVal = document.getElementById('mStatus').value;
-      let tariffStatus = statusVal === 'demo' ? 'Demo-витрина' : 
-                         typeVal === 'main' ? 'SYNAPTIQ Main' :
-                         typeVal === 'brand' ? 'Personal / Brand' :
-                         typeVal === 'restaurant' ? 'Меню + QR' : 'Подготовка к запуску';
+      
+      let tariffStatus = sectionVal === 'template' ? 'Мастер-шаблон' :
+                         sectionVal === 'demo' ? 'Demo-витрина' : 
+                         sectionVal === 'main' ? 'SYNAPTIQ Main' : 'В работе';
 
       const project = {
         name: document.getElementById('mName').value,
+        section: sectionVal,
         type: typeVal,
-        status: statusVal,
         domain: rawDomain,
         domainUrl: domainUrl,
         registrar: registrarVal,
         repo: document.getElementById('mRepo').value,
         local: document.getElementById('mLocal').value,
         url: document.getElementById('mUrl').value,
-        crm: typeVal === 'salon' || typeVal === 'coworking' ? document.getElementById('mUrl').value + "admin.html" : "",
+        crm: typeVal === 'salon' || typeVal === 'coworking' || typeVal === 'shop' ? document.getElementById('mUrl').value + "admin.html" : "",
         tariffStatus: tariffStatus,
         notes: document.getElementById('mNotes').value
       };
@@ -756,7 +741,7 @@
 
       if (currentPin) {
         const enc = await encryptData(projectsData, currentPin);
-        localStorage.setItem('synaptiq_master_vault_v6', JSON.stringify(enc));
+        localStorage.setItem('synaptiq_master_vault_v7', JSON.stringify(enc));
       }
 
       closeModal();
@@ -768,18 +753,10 @@
         projectsData.splice(idx, 1);
         if (currentPin) {
           const enc = await encryptData(projectsData, currentPin);
-          localStorage.setItem('synaptiq_master_vault_v6', JSON.stringify(enc));
+          localStorage.setItem('synaptiq_master_vault_v7', JSON.stringify(enc));
         }
         renderDashboard();
       }
-    }
-
-    async function exportEncryptedPayload() {
-      if (!currentPin) return;
-      const enc = await encryptData(projectsData, currentPin);
-      const json = JSON.stringify(enc, null, 2);
-      navigator.clipboard.writeText(json);
-      alert("Зашифрованный AES-GCM payload скопирован в буфер обмена!\nЕго можно безопасно сохранить в публичный репозиторий.");
     }
   </script>
 </body>
