@@ -52,6 +52,17 @@
       border: 1px solid rgba(99, 102, 241, 0.25);
       color: #A5B4FC;
     }
+    /* Horizontal scrollbar styling for mobile */
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
@@ -71,24 +82,24 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
         <div id="securityStatusBadge" class="hidden sm:flex items-center gap-2 text-xs font-mono text-zinc-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
           <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse" id="statusDot"></span>
           <span id="statusLabel">LOCKED</span>
         </div>
         <button id="lockBtn" onclick="lockHub()" class="hidden px-3.5 py-1.5 text-xs font-mono font-medium text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 rounded-lg border border-white/10 transition-colors">
-          🔒 Заблокировать
+          🔒 Выйти
         </button>
       </div>
     </div>
   </header>
 
   <!-- MAIN VIEW CONTAINER -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full">
 
     <!-- 1. LOCK SCREEN (PIN PROMPT) -->
-    <div id="lockScreen" class="max-w-md mx-auto my-12 text-center">
-      <div class="glass-card p-8 rounded-3xl glow-cyan border border-cyan-500/20">
+    <div id="lockScreen" class="max-w-md mx-auto my-12 text-center px-4">
+      <div class="glass-card p-6 sm:p-8 rounded-3xl glow-cyan border border-cyan-500/20">
         <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-indigo-500/20 border border-cyan-500/30 flex items-center justify-center">
           <svg class="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
@@ -115,79 +126,71 @@
     </div>
 
     <!-- 2. DASHBOARD VIEW (AFTER UNLOCK) -->
-    <div id="dashboardView" class="hidden space-y-8">
+    <div id="dashboardView" class="hidden space-y-6 sm:space-y-8">
 
       <!-- STATS KPI BAR -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="glass-card p-5 rounded-2xl">
-          <div class="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">Всего проектов</div>
-          <div class="text-3xl font-bold text-white" id="statTotal">0</div>
-          <div class="text-[11px] text-cyan-400 mt-1 font-mono">100% Synaptiq Org</div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+        <div class="glass-card p-4 sm:p-5 rounded-2xl">
+          <div class="text-[11px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">Всего проектов</div>
+          <div class="text-2xl sm:text-3xl font-bold text-white" id="statTotal">0</div>
+          <div class="text-[10px] sm:text-[11px] text-cyan-400 mt-1 font-mono">100% Synaptiq Org</div>
         </div>
-        <div class="glass-card p-5 rounded-2xl">
-          <div class="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">В работе (Active)</div>
-          <div class="text-3xl font-bold text-emerald-400" id="statActive">0</div>
-          <div class="text-[11px] text-zinc-500 mt-1 font-mono">Действующие сайты</div>
+        <div class="glass-card p-4 sm:p-5 rounded-2xl">
+          <div class="text-[11px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">В работе (Active)</div>
+          <div class="text-2xl sm:text-3xl font-bold text-emerald-400" id="statActive">0</div>
+          <div class="text-[10px] sm:text-[11px] text-zinc-500 mt-1 font-mono">Действующие сайты</div>
         </div>
-        <div class="glass-card p-5 rounded-2xl">
-          <div class="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">Шаблоны & Демо</div>
-          <div class="text-3xl font-bold text-purple-400" id="statDemo">0</div>
-          <div class="text-[11px] text-zinc-500 mt-1 font-mono">База для презентаций</div>
+        <div class="glass-card p-4 sm:p-5 rounded-2xl">
+          <div class="text-[11px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">Шаблоны & Демо</div>
+          <div class="text-2xl sm:text-3xl font-bold text-purple-400" id="statDemo">0</div>
+          <div class="text-[10px] sm:text-[11px] text-zinc-500 mt-1 font-mono">База для клиентов</div>
         </div>
-        <div class="glass-card p-5 rounded-2xl">
-          <div class="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">На своих доменах</div>
-          <div class="text-3xl font-bold text-cyan-400 font-mono" id="statDomains">2</div>
-          <div class="text-[11px] text-zinc-500 mt-1 font-mono">Custom DNS активны</div>
+        <div class="glass-card p-4 sm:p-5 rounded-2xl">
+          <div class="text-[11px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">На своих доменах</div>
+          <div class="text-2xl sm:text-3xl font-bold text-cyan-400 font-mono" id="statDomains">2</div>
+          <div class="text-[10px] sm:text-[11px] text-zinc-500 mt-1 font-mono">Custom DNS активны</div>
         </div>
       </div>
 
       <!-- CONTROLS & FILTER BAR (Strict tabs: Все, SINAPTIQ Projects, Шаблоны, Демо, В работе) -->
-      <div class="flex flex-col sm:flex-row gap-4 items-center justify-between">
-        <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-          <button onclick="setFilter('all')" class="filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black shadow-md transition-all" data-type="all">
+      <div class="overflow-x-auto pb-1 -mx-3 px-3 sm:mx-0 sm:px-0">
+        <div class="flex items-center gap-2 min-w-max">
+          <button onclick="setFilter('all')" class="filter-btn active px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black shadow-md transition-all" data-type="all">
             Все
           </button>
-          <button onclick="setFilter('main')" class="filter-btn px-4 py-2 rounded-xl text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all flex items-center gap-1.5" data-type="main">
+          <button onclick="setFilter('main')" class="filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all flex items-center gap-1.5" data-type="main">
             <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
             SINAPTIQ Projects
           </button>
-          <button onclick="setFilter('template')" class="filter-btn px-4 py-2 rounded-xl text-xs font-medium text-amber-300 hover:text-amber-200 bg-amber-950/30 border border-amber-800/40 transition-all flex items-center gap-1.5" data-type="template">
+          <button onclick="setFilter('template')" class="filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-medium text-amber-300 hover:text-amber-200 bg-amber-950/30 border border-amber-800/40 transition-all flex items-center gap-1.5" data-type="template">
             <span>📐</span>
             Шаблоны
           </button>
-          <button onclick="setFilter('demo')" class="filter-btn px-4 py-2 rounded-xl text-xs font-medium text-purple-300 hover:text-purple-200 bg-purple-950/30 border border-purple-800/40 transition-all flex items-center gap-1.5" data-type="demo">
+          <button onclick="setFilter('demo')" class="filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-medium text-purple-300 hover:text-purple-200 bg-purple-950/30 border border-purple-800/40 transition-all flex items-center gap-1.5" data-type="demo">
             <span>✨</span>
             Демо
           </button>
-          <button onclick="setFilter('active')" class="filter-btn px-4 py-2 rounded-xl text-xs font-medium text-emerald-300 hover:text-emerald-200 bg-emerald-950/30 border border-emerald-800/40 transition-all flex items-center gap-1.5" data-type="active">
+          <button onclick="setFilter('active')" class="filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-medium text-emerald-300 hover:text-emerald-200 bg-emerald-950/30 border border-emerald-800/40 transition-all flex items-center gap-1.5" data-type="active">
             <span>🚀</span>
             В работе
           </button>
         </div>
-
-        <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
-          <button onclick="openModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/20 transition-all flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            Добавить проект
-          </button>
-        </div>
       </div>
 
-      <!-- PROJECTS TABLE -->
-      <div class="glass-card rounded-2xl overflow-hidden border border-white/5">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm">
+      <!-- DESKTOP / TABLET: ADAPTIVE TABLE VIEW (Hidden on small mobile) -->
+      <div class="hidden md:block glass-card rounded-2xl overflow-hidden border border-white/5">
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-left text-sm min-w-[760px]">
             <thead class="bg-black/30 border-b border-white/5 font-mono text-[11px] text-zinc-400 uppercase tracking-wider">
               <tr>
                 <th class="py-3.5 px-4">Проект & Заведение</th>
-                <th class="py-3.5 px-4">Категория / Статус</th>
+                <th class="py-3.5 px-4">Категория</th>
                 <th class="py-3.5 px-4">Сайт & Витрина</th>
                 <th class="py-3.5 px-4">Привязанный Домен</th>
                 <th class="py-3.5 px-4">Регистратор</th>
                 <th class="py-3.5 px-4">Репозиторий</th>
                 <th class="py-3.5 px-4">Статус тарифа</th>
-                <th class="py-3.5 px-4">Доступы & Заметки</th>
-                <th class="py-3.5 px-4 text-right">Действия</th>
+                <th class="py-3.5 px-4">Заметки</th>
               </tr>
             </thead>
             <tbody id="projectsTableBody" class="divide-y divide-white/5">
@@ -197,92 +200,13 @@
         </div>
       </div>
 
-    </div>
-  </main>
-
-  <!-- MODAL: ADD / EDIT PROJECT -->
-  <div id="projectModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-card p-6 rounded-3xl max-w-lg w-full border border-white/10 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between mb-5">
-        <h3 id="modalTitle" class="text-lg font-bold text-white">Добавить проект</h3>
-        <button onclick="closeModal()" class="text-zinc-500 hover:text-white">✕</button>
+      <!-- MOBILE / SMALL SCREEN: ADAPTIVE CARDS GRID (Visible on small screens) -->
+      <div id="projectsMobileGrid" class="md:hidden space-y-3">
+        <!-- Rendered via JS for mobile -->
       </div>
 
-      <form id="projectForm" onsubmit="saveProject(event)" class="space-y-4">
-        <input type="hidden" id="editIndex" value="-1">
-        
-        <div>
-          <label class="block text-xs font-mono text-zinc-400 mb-1">Название заведения / проекта</label>
-          <input type="text" id="mName" required class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm text-white" placeholder="Например: NOIR Hair Atelier">
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-mono text-zinc-400 mb-1">Раздел / Статус в хабе</label>
-            <select id="mSection" class="glass-input w-full px-3 py-2.5 rounded-xl text-sm text-white">
-              <option value="main">SINAPTIQ Projects</option>
-              <option value="template">Шаблоны (Templates)</option>
-              <option value="demo">Демо (Презентации)</option>
-              <option value="active">В работе (Active)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-mono text-zinc-400 mb-1">Тип заведения</label>
-            <select id="mType" class="glass-input w-full px-3 py-2.5 rounded-xl text-sm text-white">
-              <option value="salon">Салон красоты / SPA</option>
-              <option value="shop">Магазин / Shop+CRM</option>
-              <option value="coworking">Коворкинг / Пространство</option>
-              <option value="restaurant">Ресторан / Меню</option>
-              <option value="main">Платформа / Бренд</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-mono text-emerald-400 mb-1 flex items-center gap-1">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-              Домен (Custom Domain)
-            </label>
-            <input type="text" id="mDomain" class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-emerald-300 placeholder:text-zinc-600" placeholder="noir-atelier.vn">
-          </div>
-          <div>
-            <label class="block text-xs font-mono text-indigo-400 mb-1 flex items-center gap-1">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-              Регистратор домена
-            </label>
-            <input type="text" id="mRegistrar" class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-indigo-300 placeholder:text-zinc-600" placeholder="reg.ru, beget.ru, cloudflare">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-mono text-zinc-400 mb-1">Репозиторий GitHub</label>
-            <input type="text" id="mRepo" required class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-white" placeholder="synaptiqlab/demo">
-          </div>
-          <div>
-            <label class="block text-xs font-mono text-zinc-400 mb-1">Локальная папка</label>
-            <input type="text" id="mLocal" class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-white" placeholder="salons/noir-atelier">
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-mono text-zinc-400 mb-1">Ссылка GitHub Pages / Файл</label>
-          <input type="url" id="mUrl" required class="glass-input w-full px-3.5 py-2.5 rounded-xl text-sm font-mono text-white" placeholder="https://synaptiqlab.github.io/demo/noir-atelier/">
-        </div>
-
-        <div>
-          <label class="block text-xs font-mono text-zinc-400 mb-1">Доступы / Данные входа / Заметки (Конфиденциально)</label>
-          <textarea id="mNotes" rows="2" class="glass-input w-full px-3.5 py-2 rounded-xl text-sm text-white" placeholder="DNS Cloudflare, логин регистратора, кассовый PIN..."></textarea>
-        </div>
-
-        <div class="flex items-center justify-end gap-3 pt-3">
-          <button type="button" onclick="closeModal()" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-zinc-400 hover:text-white bg-white/5">Отмена</button>
-          <button type="submit" class="px-5 py-2.5 rounded-xl text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 text-black shadow-lg shadow-cyan-500/20">Сохранить</button>
-        </div>
-      </form>
     </div>
-  </div>
+  </main>
 
   <!-- FOOTER -->
   <footer class="border-t border-white/5 py-6 bg-[#04060B]">
@@ -300,8 +224,6 @@
 
   <!-- CRYPTO & DATA ENGINE -->
   <script>
-    // Initial master data
-    // section values: "main", "template", "demo", "active"
     const DEFAULT_MASTER_PROJECTS = [
       {
         name: "SYNAPTIQ Lab",
@@ -329,49 +251,7 @@
         url: "https://synaptiqlab.github.io/demo/noir-atelier/",
         crm: "https://synaptiqlab.github.io/demo/noir-atelier/admin.html",
         tariffStatus: "Мастер-шаблон №1",
-        notes: "Базовый мастер-шаблон салона премиум-класса с CRM-движком и расчетом зарплат. Для трансляции клиентам."
-      },
-      {
-        name: "EVO Beauty Space",
-        section: "demo",
-        type: "salon",
-        domain: "",
-        domainUrl: "",
-        registrar: "",
-        repo: "synaptiqlab/demo",
-        local: "salons/evo-beauty-space",
-        url: "https://synaptiqlab.github.io/demo/evo-beauty-space/",
-        crm: "https://synaptiqlab.github.io/demo/evo-beauty-space/admin.html",
-        tariffStatus: "Demo-витрина",
-        notes: "Премиальное бьюти-пространство и врачебная косметология. Презентационный сайт."
-      },
-      {
-        name: "Art Bouquet",
-        section: "demo",
-        type: "shop",
-        domain: "",
-        domainUrl: "",
-        registrar: "",
-        repo: "synaptiqlab/demo",
-        local: "salons/art-bouquet",
-        url: "https://synaptiqlab.github.io/demo/art-bouquet/",
-        crm: "",
-        tariffStatus: "Demo-витрина",
-        notes: "Цветочный магазин премиум-флористики. Каталог + CRM заказов."
-      },
-      {
-        name: "СК Сириус",
-        section: "active",
-        type: "brand",
-        domain: "ск-сириус.рф",
-        domainUrl: "http://xn----ptbaf6accdr.xn--p1ai",
-        registrar: "beget.ru",
-        repo: "synaptiqlab/sk-sirius",
-        local: "sk-sirius",
-        url: "http://xn----ptbaf6accdr.xn--p1ai",
-        crm: "",
-        tariffStatus: "В работе (Бесплатно)",
-        notes: "Спортивный комплекс. Рабочий сайт, домен на beget.ru (Punycode xn----ptbaf6accdr.xn--p1ai)."
+        notes: "Базовый мастер-шаблон премиум-салона с CRM-движком и расчетом смен/зарплат."
       },
       {
         name: "HD Hair Lab",
@@ -399,7 +279,35 @@
         url: "https://synaptiqlab.github.io/prime-space/",
         crm: "https://synaptiqlab.github.io/prime-space/admin.html",
         tariffStatus: "Demo-витрина",
-        notes: "Многофункциональное пространство, йога, танцы, аренда рабочих мест. Демо-версия."
+        notes: "Многофункциональное пространство, йога, танцы, аренда рабочих мест."
+      },
+      {
+        name: "EVO Beauty Space",
+        section: "demo",
+        type: "salon",
+        domain: "",
+        domainUrl: "",
+        registrar: "",
+        repo: "synaptiqlab/demo",
+        local: "salons/evo-beauty-space",
+        url: "https://synaptiqlab.github.io/demo/evo-beauty-space/",
+        crm: "https://synaptiqlab.github.io/demo/evo-beauty-space/admin.html",
+        tariffStatus: "Demo-витрина",
+        notes: "Премиальное бьюти-пространство и врачебная косметология."
+      },
+      {
+        name: "Art Bouquet",
+        section: "demo",
+        type: "shop",
+        domain: "",
+        domainUrl: "",
+        registrar: "",
+        repo: "synaptiqlab/demo",
+        local: "salons/art-bouquet",
+        url: "https://synaptiqlab.github.io/demo/art-bouquet/",
+        crm: "",
+        tariffStatus: "Demo-витрина",
+        notes: "Цветочный магазин премиум-флористики. Каталог + CRM заказов."
       },
       {
         name: "Bếp Sen Vàng",
@@ -441,11 +349,24 @@
         url: "https://synaptiqlab.github.io/menu/khoi-lounge-bar.html",
         crm: "",
         tariffStatus: "Demo-меню",
-        notes: "Лаунж-бар, коктейли и европейская/азиатская кухня. Демо-меню."
+        notes: "Лаунж-бар, коктейли и европейская/азиатская кухня."
+      },
+      {
+        name: "СК Сириус",
+        section: "active",
+        type: "brand",
+        domain: "ск-сириус.рф",
+        domainUrl: "http://xn----ptbaf6accdr.xn--p1ai",
+        registrar: "beget.ru",
+        repo: "synaptiqlab/sk-sirius",
+        local: "sk-sirius",
+        url: "http://xn----ptbaf6accdr.xn--p1ai",
+        crm: "",
+        tariffStatus: "В работе (Бесплатно)",
+        notes: "Спортивный комплекс. Рабочий сайт, домен на beget.ru (Punycode xn----ptbaf6accdr.xn--p1ai)."
       }
     ];
 
-    // Web Crypto API helpers (AES-GCM with PBKDF2)
     async function deriveKey(pin, salt) {
       const enc = new TextEncoder();
       const keyMaterial = await crypto.subtle.importKey(
@@ -500,11 +421,9 @@
       return JSON.parse(dec.decode(decrypted));
     }
 
-    // STATE
     let currentPin = "";
     let projectsData = [];
     let currentFilter = "all";
-    let ENCRYPTED_PAYLOAD = null;
 
     async function handleUnlock(e) {
       e.preventDefault();
@@ -520,17 +439,13 @@
       }
 
       try {
-        if (ENCRYPTED_PAYLOAD) {
-          projectsData = await decryptData(ENCRYPTED_PAYLOAD, pin);
+        const stored = localStorage.getItem('synaptiq_master_vault_v9');
+        if (stored) {
+          projectsData = await decryptData(JSON.parse(stored), pin);
         } else {
-          const stored = localStorage.getItem('synaptiq_master_vault_v8');
-          if (stored) {
-            projectsData = await decryptData(JSON.parse(stored), pin);
-          } else {
-            projectsData = DEFAULT_MASTER_PROJECTS;
-            const enc = await encryptData(projectsData, pin);
-            localStorage.setItem('synaptiq_master_vault_v8', JSON.stringify(enc));
-          }
+          projectsData = DEFAULT_MASTER_PROJECTS;
+          const enc = await encryptData(projectsData, pin);
+          localStorage.setItem('synaptiq_master_vault_v9', JSON.stringify(enc));
         }
         currentPin = pin;
         showDashboard();
@@ -548,7 +463,7 @@
       const badge = document.getElementById('securityStatusBadge');
       badge.classList.remove('hidden');
       document.getElementById('statusDot').className = "w-2 h-2 rounded-full bg-emerald-400";
-      document.getElementById('statusLabel').textContent = "DECRYPTED (ACTIVE)";
+      document.getElementById('statusLabel').textContent = "ONLINE";
       document.getElementById('statusLabel').className = "text-emerald-400";
 
       renderDashboard();
@@ -574,19 +489,20 @@
       document.getElementById('statDemo').textContent = projectsData.filter(p => p.section === 'demo' || p.section === 'template').length;
       document.getElementById('statDomains').textContent = projectsData.filter(p => p.domain && p.domain.trim() !== '').length;
 
-      // 2. Render Table Rows
-      const tbody = document.getElementById('projectsTableBody');
-      tbody.innerHTML = '';
-
       const filtered = projectsData.filter(p => {
         if (currentFilter === 'all') return true;
         return p.section === currentFilter;
       });
 
-      filtered.forEach((p, idx) => {
-        const tr = document.createElement('tr');
-        tr.className = "hover:bg-white/[0.02] transition-colors";
+      // 2. Render Desktop/Tablet Table Rows
+      const tbody = document.getElementById('projectsTableBody');
+      tbody.innerHTML = '';
 
+      // 3. Render Mobile Cards Container
+      const mobileGrid = document.getElementById('projectsMobileGrid');
+      mobileGrid.innerHTML = '';
+
+      filtered.forEach((p) => {
         const sectionBadge = p.section === 'main' ? '<span class="badge bg-cyan-950/80 text-cyan-300 border border-cyan-800/40">SINAPTIQ</span>' :
                              p.section === 'template' ? '<span class="badge bg-amber-950/80 text-amber-300 border border-amber-800/40">Шаблон</span>' :
                              p.section === 'demo' ? '<span class="badge bg-purple-950/80 text-purple-300 border border-purple-800/40">Демо</span>' :
@@ -597,7 +513,7 @@
                           p.section === 'demo' ? '<span class="inline-block w-2 h-2 rounded-full bg-purple-400 mr-1.5" title="Демо"></span>' :
                           '<span class="inline-block w-2 h-2 rounded-full bg-cyan-400 mr-1.5" title="Main"></span>';
 
-        // Custom domain button/chip
+        // Custom domain chip
         let domainHtml = '<span class="text-zinc-600 font-mono text-xs">—</span>';
         if (p.domain) {
           const href = p.domainUrl || (p.domain.startsWith('http') ? p.domain : `https://${p.domain}`);
@@ -621,16 +537,19 @@
           `;
         }
 
+        // --- DESKTOP TABLE ROW ---
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-white/[0.02] transition-colors";
         tr.innerHTML = `
-          <td class="py-4 px-4 font-semibold text-white">
+          <td class="py-3.5 px-4 font-semibold text-white">
             <div class="flex items-center">
               ${statusDot}
               <span>${p.name}</span>
             </div>
             <div class="text-[11px] font-mono text-zinc-500 mt-0.5">${p.local || ''}</div>
           </td>
-          <td class="py-4 px-4 whitespace-nowrap">${sectionBadge}</td>
-          <td class="py-4 px-4 font-mono text-xs">
+          <td class="py-3.5 px-4 whitespace-nowrap">${sectionBadge}</td>
+          <td class="py-3.5 px-4 font-mono text-xs">
             <div class="flex items-center gap-2">
               <a href="${p.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold underline decoration-cyan-500/50 underline-offset-4 flex items-center gap-1 group">
                 <span>Открыть сайт</span>
@@ -639,31 +558,78 @@
               ${p.crm ? `<span class="text-zinc-600">•</span><a href="${p.crm}" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-semibold underline decoration-emerald-800 underline-offset-4">CRM</a>` : ''}
             </div>
           </td>
-          <td class="py-4 px-4 whitespace-nowrap">
+          <td class="py-3.5 px-4 whitespace-nowrap">
             ${domainHtml}
           </td>
-          <td class="py-4 px-4 whitespace-nowrap font-mono text-xs">
+          <td class="py-3.5 px-4 whitespace-nowrap font-mono text-xs">
             ${registrarHtml}
           </td>
-          <td class="py-4 px-4 font-mono text-xs text-zinc-400">
+          <td class="py-3.5 px-4 font-mono text-xs text-zinc-400">
             <a href="https://github.com/${p.repo}" target="_blank" class="hover:text-white hover:underline flex items-center gap-1 text-[11px]">
               <span>${p.repo}</span>
             </a>
           </td>
-          <td class="py-4 px-4 font-mono text-xs">
+          <td class="py-3.5 px-4 font-mono text-xs">
             <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-white/5 text-zinc-300 border border-white/10">
               ${p.tariffStatus || '—'}
             </span>
           </td>
-          <td class="py-4 px-4 text-xs text-zinc-400 max-w-xs truncate" title="${p.notes || ''}">
+          <td class="py-3.5 px-4 text-xs text-zinc-400 max-w-xs truncate" title="${p.notes || ''}">
             ${p.notes || '—'}
-          </td>
-          <td class="py-4 px-4 text-right whitespace-nowrap">
-            <button onclick="editProject(${projectsData.indexOf(p)})" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 mr-2">Ред</button>
-            <button onclick="deleteProject(${projectsData.indexOf(p)})" class="text-xs font-mono text-rose-400 hover:text-rose-300">Уд</button>
           </td>
         `;
         tbody.appendChild(tr);
+
+        // --- MOBILE CARD (OPTIMIZED FOR PHONES) ---
+        const card = document.createElement('div');
+        card.className = "glass-card p-4 rounded-2xl border border-white/5 space-y-3";
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <div class="flex items-center font-bold text-white text-base">
+                ${statusDot}
+                <span>${p.name}</span>
+              </div>
+              <div class="text-[11px] font-mono text-zinc-500 mt-0.5">${p.local || ''}</div>
+            </div>
+            <div>${sectionBadge}</div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-white/5">
+            <a href="${p.url}" target="_blank" class="px-3 py-1.5 rounded-lg bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 text-xs font-semibold flex items-center gap-1">
+              <span>Открыть сайт</span>
+              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+            ${p.crm ? `
+              <a href="${p.crm}" target="_blank" class="px-3 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-xs font-semibold flex items-center gap-1">
+                <span>CRM</span>
+              </a>
+            ` : ''}
+            ${p.domain ? `
+              <a href="${p.domainUrl || 'https://' + p.domain}" target="_blank" class="domain-chip px-2.5 py-1.5 rounded-lg text-xs font-mono font-semibold flex items-center gap-1">
+                <span>🌐 ${p.domain}</span>
+              </a>
+            ` : ''}
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono pt-1 text-zinc-400">
+            <div>
+              <span class="text-zinc-600">Репозиторий:</span>
+              <a href="https://github.com/${p.repo}" target="_blank" class="block text-zinc-300 hover:text-white truncate mt-0.5 text-[11px]">${p.repo}</a>
+            </div>
+            <div>
+              <span class="text-zinc-600">Регистратор:</span>
+              <div class="text-zinc-300 mt-0.5 text-[11px]">${p.registrar || '—'}</div>
+            </div>
+          </div>
+
+          ${p.notes ? `
+            <div class="text-xs text-zinc-500 bg-black/20 p-2.5 rounded-xl border border-white/5 leading-relaxed">
+              ${p.notes}
+            </div>
+          ` : ''}
+        `;
+        mobileGrid.appendChild(card);
       });
     }
 
@@ -671,92 +637,12 @@
       currentFilter = type;
       document.querySelectorAll('.filter-btn').forEach(btn => {
         if (btn.dataset.type === type) {
-          btn.className = "filter-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black shadow-md transition-all flex items-center gap-1.5";
+          btn.className = "filter-btn active px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-black shadow-md transition-all flex items-center gap-1.5";
         } else {
-          btn.className = "filter-btn px-4 py-2 rounded-xl text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all flex items-center gap-1.5";
+          btn.className = "filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all flex items-center gap-1.5";
         }
       });
       renderDashboard();
-    }
-
-    function openModal(editIdx = -1) {
-      document.getElementById('editIndex').value = editIdx;
-      if (editIdx >= 0) {
-        const p = projectsData[editIdx];
-        document.getElementById('modalTitle').textContent = "Редактировать проект";
-        document.getElementById('mName').value = p.name;
-        document.getElementById('mSection').value = p.section || 'active';
-        document.getElementById('mType').value = p.type;
-        document.getElementById('mDomain').value = p.domain || '';
-        document.getElementById('mRegistrar').value = p.registrar || '';
-        document.getElementById('mRepo').value = p.repo;
-        document.getElementById('mLocal').value = p.local || '';
-        document.getElementById('mUrl').value = p.url;
-        document.getElementById('mNotes').value = p.notes || '';
-      } else {
-        document.getElementById('modalTitle').textContent = "Добавить проект";
-        document.getElementById('projectForm').reset();
-      }
-      document.getElementById('projectModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      document.getElementById('projectModal').classList.add('hidden');
-    }
-
-    async function saveProject(e) {
-      e.preventDefault();
-      const idx = parseInt(document.getElementById('editIndex').value);
-      const rawDomain = document.getElementById('mDomain').value.trim();
-      const domainUrl = rawDomain ? (rawDomain.startsWith('http') ? rawDomain : `https://${rawDomain}`) : '';
-      const registrarVal = document.getElementById('mRegistrar').value.trim();
-
-      const sectionVal = document.getElementById('mSection').value;
-      const typeVal = document.getElementById('mType').value;
-      
-      let tariffStatus = sectionVal === 'template' ? 'Мастер-шаблон' :
-                         sectionVal === 'demo' ? 'Demo-витрина' : 
-                         sectionVal === 'main' ? 'SYNAPTIQ Main' : 'В работе';
-
-      const project = {
-        name: document.getElementById('mName').value,
-        section: sectionVal,
-        type: typeVal,
-        domain: rawDomain,
-        domainUrl: domainUrl,
-        registrar: registrarVal,
-        repo: document.getElementById('mRepo').value,
-        local: document.getElementById('mLocal').value,
-        url: document.getElementById('mUrl').value,
-        crm: typeVal === 'salon' || typeVal === 'coworking' || typeVal === 'shop' ? document.getElementById('mUrl').value + "admin.html" : "",
-        tariffStatus: tariffStatus,
-        notes: document.getElementById('mNotes').value
-      };
-
-      if (idx >= 0) {
-        projectsData[idx] = project;
-      } else {
-        projectsData.push(project);
-      }
-
-      if (currentPin) {
-        const enc = await encryptData(projectsData, currentPin);
-        localStorage.setItem('synaptiq_master_vault_v8', JSON.stringify(enc));
-      }
-
-      closeModal();
-      renderDashboard();
-    }
-
-    async function deleteProject(idx) {
-      if (confirm(`Удалить проект "${projectsData[idx].name}" из хаба?`)) {
-        projectsData.splice(idx, 1);
-        if (currentPin) {
-          const enc = await encryptData(projectsData, currentPin);
-          localStorage.setItem('synaptiq_master_vault_v8', JSON.stringify(enc));
-        }
-        renderDashboard();
-      }
     }
   </script>
 </body>
