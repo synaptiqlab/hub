@@ -191,10 +191,10 @@
               <tr>
                 <th class="py-3.5 px-4">Проект & Заведение</th>
                 <th class="py-3.5 px-4">Раздел</th>
-                <th class="py-3.5 px-4">Репозиторий GitHub</th>
+                <th class="py-3.5 px-4">Сайт & Витрина</th>
                 <th class="py-3.5 px-4">Привязанный Домен</th>
                 <th class="py-3.5 px-4">Регистратор</th>
-                <th class="py-3.5 px-4">GitHub Pages / CRM</th>
+                <th class="py-3.5 px-4">Репозиторий</th>
                 <th class="py-3.5 px-4">Статус тарифа</th>
                 <th class="py-3.5 px-4">Доступы & Заметки</th>
                 <th class="py-3.5 px-4 text-right">Действия</th>
@@ -641,11 +641,14 @@
             <div class="text-[11px] font-mono text-zinc-500 mt-0.5">${p.local || ''}</div>
           </td>
           <td class="py-4 px-4 whitespace-nowrap">${typeBadge}</td>
-          <td class="py-4 px-4 font-mono text-xs text-cyan-400">
-            <a href="https://github.com/${p.repo}" target="_blank" class="hover:underline flex items-center gap-1">
-              <span>${p.repo}</span>
-              <svg class="w-3 h-3 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-            </a>
+          <td class="py-4 px-4 font-mono text-xs">
+            <div class="flex items-center gap-2">
+              <a href="${p.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold underline decoration-cyan-500/50 underline-offset-4 flex items-center gap-1 group">
+                <span>Открыть сайт</span>
+                <svg class="w-3.5 h-3.5 text-cyan-500 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+              ${p.crm ? `<span class="text-zinc-600">•</span><a href="${p.crm}" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-semibold underline decoration-emerald-800 underline-offset-4">CRM</a>` : ''}
+            </div>
           </td>
           <td class="py-4 px-4 whitespace-nowrap">
             ${domainHtml}
@@ -653,11 +656,10 @@
           <td class="py-4 px-4 whitespace-nowrap font-mono text-xs">
             ${registrarHtml}
           </td>
-          <td class="py-4 px-4 font-mono text-xs">
-            <div class="flex items-center gap-2">
-              <a href="${p.url}" target="_blank" class="text-zinc-300 hover:text-white underline decoration-zinc-700 underline-offset-4">GitHub Page</a>
-              ${p.crm ? `<span class="text-zinc-600">•</span><a href="${p.crm}" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-semibold underline decoration-emerald-800 underline-offset-4">CRM</a>` : ''}
-            </div>
+          <td class="py-4 px-4 font-mono text-xs text-zinc-400">
+            <a href="https://github.com/${p.repo}" target="_blank" class="hover:text-white hover:underline flex items-center gap-1 text-[11px]">
+              <span>${p.repo}</span>
+            </a>
           </td>
           <td class="py-4 px-4 font-mono text-xs">
             <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-white/5 text-zinc-300 border border-white/10">
