@@ -297,7 +297,7 @@
       },
       {
         name: "Art Bouquet",
-        section: "demo",
+        section: "template",
         type: "shop",
         domain: "",
         domainUrl: "",
@@ -305,9 +305,10 @@
         repo: "synaptiqlab/demo",
         local: "salons/art-bouquet",
         url: "https://synaptiqlab.github.io/demo/art-bouquet/",
-        crm: "",
-        tariffStatus: "Demo-витрина",
-        notes: "Цветочный магазин премиум-флористики. Каталог + CRM заказов."
+        crm: "https://synaptiqlab.github.io/demo/art-bouquet/admin.html",
+        tgGroup: "https://t.me/+Sy56rFxJlTZlOTVi",
+        tariffStatus: "Мастер-шаблон №2 (Shop)",
+        notes: "Эталонный мастер-шаблон интернет-магазина (Shop Engine). Каталог букетов, модалка товара, заказ в 1 клик. Заказы с онлайн-формы моментально отправляются Telegram-ботом в закрытую группу заказов: https://t.me/+Sy56rFxJlTZlOTVi. Встроенная CRM флориста: admin.html (PIN: 1234)."
       },
       {
         name: "Bếp Sen Vàng",
@@ -439,13 +440,13 @@
       }
 
       try {
-        const stored = localStorage.getItem('synaptiq_master_vault_v9');
+        const stored = localStorage.getItem('synaptiq_master_vault_v10');
         if (stored) {
           projectsData = await decryptData(JSON.parse(stored), pin);
         } else {
           projectsData = DEFAULT_MASTER_PROJECTS;
           const enc = await encryptData(projectsData, pin);
-          localStorage.setItem('synaptiq_master_vault_v9', JSON.stringify(enc));
+          localStorage.setItem('synaptiq_master_vault_v10', JSON.stringify(enc));
         }
         currentPin = pin;
         showDashboard();
@@ -480,6 +481,11 @@
       document.getElementById('statusDot').className = "w-2 h-2 rounded-full bg-amber-400 animate-pulse";
       document.getElementById('statusLabel').textContent = "LOCKED";
       document.getElementById('statusLabel').className = "text-zinc-400";
+    }
+
+    function formatNotes(notes) {
+      if (!notes) return '—';
+      return notes.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline hover:text-cyan-300 break-all font-mono text-[11px]">$1</a>');
     }
 
     function renderDashboard() {
@@ -550,12 +556,13 @@
           </td>
           <td class="py-3.5 px-4 whitespace-nowrap">${sectionBadge}</td>
           <td class="py-3.5 px-4 font-mono text-xs">
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
               <a href="${p.url}" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-semibold underline decoration-cyan-500/50 underline-offset-4 flex items-center gap-1 group">
                 <span>Открыть сайт</span>
                 <svg class="w-3.5 h-3.5 text-cyan-500 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>
               ${p.crm ? `<span class="text-zinc-600">•</span><a href="${p.crm}" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-semibold underline decoration-emerald-800 underline-offset-4">CRM</a>` : ''}
+              ${p.tgGroup ? `<span class="text-zinc-600">•</span><a href="${p.tgGroup}" target="_blank" class="text-sky-400 hover:text-sky-300 font-semibold underline decoration-sky-800 underline-offset-4 flex items-center gap-1"><span>TG Заказы</span></a>` : ''}
             </div>
           </td>
           <td class="py-3.5 px-4 whitespace-nowrap">
@@ -575,7 +582,7 @@
             </span>
           </td>
           <td class="py-3.5 px-4 text-xs text-zinc-300 max-w-[260px] min-w-[200px] whitespace-normal leading-relaxed">
-            ${p.notes || '—'}
+            ${formatNotes(p.notes)}
           </td>
         `;
         tbody.appendChild(tr);
@@ -605,6 +612,11 @@
                 <span>CRM</span>
               </a>
             ` : ''}
+            ${p.tgGroup ? `
+              <a href="${p.tgGroup}" target="_blank" class="px-3 py-1.5 rounded-lg bg-sky-500/15 text-sky-300 border border-sky-500/30 text-xs font-semibold flex items-center gap-1">
+                <span>✈️ TG Заказы</span>
+              </a>
+            ` : ''}
             ${p.domain ? `
               <a href="${p.domainUrl || 'https://' + p.domain}" target="_blank" class="domain-chip px-2.5 py-1.5 rounded-lg text-xs font-mono font-semibold flex items-center gap-1">
                 <span>🌐 ${p.domain}</span>
@@ -624,8 +636,8 @@
           </div>
 
           ${p.notes ? `
-            <div class="text-xs text-zinc-500 bg-black/20 p-2.5 rounded-xl border border-white/5 leading-relaxed">
-              ${p.notes}
+            <div class="text-xs text-zinc-400 bg-black/20 p-2.5 rounded-xl border border-white/5 leading-relaxed">
+              ${formatNotes(p.notes)}
             </div>
           ` : ''}
         `;
