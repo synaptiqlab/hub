@@ -153,6 +153,9 @@
           <button onclick="setFilter('salon')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all" data-type="salon">
             Салоны+СРМ
           </button>
+          <button onclick="setFilter('shop')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all" data-type="shop">
+            Shop+CRM
+          </button>
           <button onclick="setFilter('coworking')" class="filter-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-white/5 border border-white/5 transition-all" data-type="coworking">
             Коворкинг+СРМ
           </button>
@@ -221,6 +224,7 @@
               <option value="main">Мэйн</option>
               <option value="brand">Персонал</option>
               <option value="salon">Салоны+СРМ</option>
+              <option value="shop">Shop+CRM</option>
               <option value="coworking">Коворкинг+СРМ</option>
               <option value="restaurant">Меню</option>
             </select>
@@ -357,7 +361,7 @@
       },
       {
         name: "Art Bouquet",
-        type: "salon",
+        type: "shop",
         status: "demo",
         domain: "",
         domainUrl: "",
@@ -366,7 +370,7 @@
         url: "https://synaptiqlab.github.io/demo/art-bouquet/",
         crm: "",
         tariffStatus: "Demo-витрина",
-        notes: "Каталог букетов премиум-флористики."
+        notes: "Премиум-флористика и авторские букеты. Каталог + CRM заказов."
       },
       {
         name: "PRIME Space",
@@ -495,13 +499,13 @@
         if (ENCRYPTED_PAYLOAD) {
           projectsData = await decryptData(ENCRYPTED_PAYLOAD, pin);
         } else {
-          const stored = localStorage.getItem('synaptiq_master_vault_v3');
+          const stored = localStorage.getItem('synaptiq_master_vault_v4');
           if (stored) {
             projectsData = await decryptData(JSON.parse(stored), pin);
           } else {
             projectsData = DEFAULT_MASTER_PROJECTS;
             const enc = await encryptData(projectsData, pin);
-            localStorage.setItem('synaptiq_master_vault_v3', JSON.stringify(enc));
+            localStorage.setItem('synaptiq_master_vault_v4', JSON.stringify(enc));
           }
         }
         currentPin = pin;
@@ -562,6 +566,7 @@
         const typeBadge = p.type === 'main' ? '<span class="badge bg-cyan-950/80 text-cyan-300 border border-cyan-800/40">Мэйн</span>' :
                           p.type === 'brand' ? '<span class="badge bg-indigo-950/80 text-indigo-300 border border-indigo-800/40">Персонал</span>' :
                           p.type === 'salon' ? '<span class="badge bg-purple-950/80 text-purple-300 border border-purple-800/40">Салоны+СРМ</span>' :
+                          p.type === 'shop' ? '<span class="badge bg-rose-950/80 text-rose-300 border border-rose-800/40">Shop+CRM</span>' :
                           p.type === 'coworking' ? '<span class="badge bg-emerald-950/80 text-emerald-300 border border-emerald-800/40">Коворкинг+СРМ</span>' :
                           '<span class="badge bg-amber-950/80 text-amber-300 border border-amber-800/40">Меню</span>';
 
@@ -695,7 +700,7 @@
 
       if (currentPin) {
         const enc = await encryptData(projectsData, currentPin);
-        localStorage.setItem('synaptiq_master_vault_v3', JSON.stringify(enc));
+        localStorage.setItem('synaptiq_master_vault_v4', JSON.stringify(enc));
       }
 
       closeModal();
@@ -707,7 +712,7 @@
         projectsData.splice(idx, 1);
         if (currentPin) {
           const enc = await encryptData(projectsData, currentPin);
-          localStorage.setItem('synaptiq_master_vault_v3', JSON.stringify(enc));
+          localStorage.setItem('synaptiq_master_vault_v4', JSON.stringify(enc));
         }
         renderDashboard();
       }
