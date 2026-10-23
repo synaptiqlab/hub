@@ -375,7 +375,7 @@
       },
       {
         name: "HD Hair Lab",
-        section: "active",
+        section: "demo",
         type: "salon",
         domain: "",
         domainUrl: "",
@@ -384,12 +384,12 @@
         local: "salons/hd-hair-lab",
         url: "https://synaptiqlab.github.io/hd-hair-lab/",
         crm: "https://synaptiqlab.github.io/hd-hair-lab/admin.html",
-        tariffStatus: "В работе",
-        notes: "Студия реконструкции волос. CRM + витрина."
+        tariffStatus: "Demo-витрина",
+        notes: "Студия реконструкции волос. Презентационный сайт и CRM."
       },
       {
         name: "PRIME Space",
-        section: "active",
+        section: "demo",
         type: "coworking",
         domain: "",
         domainUrl: "",
@@ -398,12 +398,12 @@
         local: "coworking/prime-space",
         url: "https://synaptiqlab.github.io/prime-space/",
         crm: "https://synaptiqlab.github.io/prime-space/admin.html",
-        tariffStatus: "В работе",
-        notes: "Многофункциональное пространство, йога, танцы, аренда рабочих мест."
+        tariffStatus: "Demo-витрина",
+        notes: "Многофункциональное пространство, йога, танцы, аренда рабочих мест. Демо-версия."
       },
       {
         name: "Bếp Sen Vàng",
-        section: "active",
+        section: "demo",
         type: "restaurant",
         domain: "",
         domainUrl: "",
@@ -412,12 +412,12 @@
         local: "restaurants/bep-sen-vang",
         url: "https://synaptiqlab.github.io/menu/bep-sen-vang.html",
         crm: "",
-        tariffStatus: "В работе (Меню)",
+        tariffStatus: "Demo-меню",
         notes: "Электронное меню на 4 языках + печатный тейбл-тент А6 300 DPI."
       },
       {
         name: "Bún Bò Huế Bà Lãng",
-        section: "active",
+        section: "demo",
         type: "restaurant",
         domain: "",
         domainUrl: "",
@@ -426,12 +426,12 @@
         local: "restaurants/bun-bo-hue-ba-lang",
         url: "https://synaptiqlab.github.io/menu/bun-bo-hue-ba-lang.html",
         crm: "",
-        tariffStatus: "В работе (Меню)",
+        tariffStatus: "Demo-меню",
         notes: "Электронное меню на 4 языках + печатный тейбл-тент А6."
       },
       {
         name: "Khói Lounge Bar",
-        section: "active",
+        section: "demo",
         type: "restaurant",
         domain: "",
         domainUrl: "",
@@ -440,8 +440,8 @@
         local: "restaurants/khoi-lounge-bar",
         url: "https://synaptiqlab.github.io/menu/khoi-lounge-bar.html",
         crm: "",
-        tariffStatus: "В работе (Меню)",
-        notes: "Лаунж-бар, коктейли и европейская/азиатская кухня."
+        tariffStatus: "Demo-меню",
+        notes: "Лаунж-бар, коктейли и европейская/азиатская кухня. Демо-меню."
       }
     ];
 
@@ -523,13 +523,13 @@
         if (ENCRYPTED_PAYLOAD) {
           projectsData = await decryptData(ENCRYPTED_PAYLOAD, pin);
         } else {
-          const stored = localStorage.getItem('synaptiq_master_vault_v7');
+          const stored = localStorage.getItem('synaptiq_master_vault_v8');
           if (stored) {
             projectsData = await decryptData(JSON.parse(stored), pin);
           } else {
             projectsData = DEFAULT_MASTER_PROJECTS;
             const enc = await encryptData(projectsData, pin);
-            localStorage.setItem('synaptiq_master_vault_v7', JSON.stringify(enc));
+            localStorage.setItem('synaptiq_master_vault_v8', JSON.stringify(enc));
           }
         }
         currentPin = pin;
@@ -741,7 +741,7 @@
 
       if (currentPin) {
         const enc = await encryptData(projectsData, currentPin);
-        localStorage.setItem('synaptiq_master_vault_v7', JSON.stringify(enc));
+        localStorage.setItem('synaptiq_master_vault_v8', JSON.stringify(enc));
       }
 
       closeModal();
@@ -753,7 +753,7 @@
         projectsData.splice(idx, 1);
         if (currentPin) {
           const enc = await encryptData(projectsData, currentPin);
-          localStorage.setItem('synaptiq_master_vault_v7', JSON.stringify(enc));
+          localStorage.setItem('synaptiq_master_vault_v8', JSON.stringify(enc));
         }
         renderDashboard();
       }
